@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Activity</title>
+</head>
+<body>
+<h1>Bot Activity:</h1>
+<p id="activity"></p>
+
+<script>
+    async function getActivity() {
+        try {
+            const response = await fetch('http://localhost:3000/activity');
+            const data = await response.json();
+            if (data.activity) {
+                document.getElementById('activity').textContent = `Type: ${data.activity.type}, Name: ${data.activity.name}`;
+            } else {
+                document.getElementById('activity').textContent = 'No activity';
+            }
+        } catch (error) {
+            console.error('Error fetching activity:', error);
+        }
+    }
+    getActivity();
+    setInterval(getActivity, 5000);
+</script>
+</body>
+</html>
